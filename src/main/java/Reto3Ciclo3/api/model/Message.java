@@ -36,7 +36,6 @@ public class Message implements Serializable {
     @JsonIgnoreProperties({"messages", "client", "reservations"})
     private Client client;
 
-
     public Integer getIdMessage() {
         return idMessage;
     }

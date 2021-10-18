@@ -78,20 +78,20 @@ public class Reservation implements Serializable {
         this.status = status;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public Boat getBoat() {
         return boat;
     }
 
     public void setBoat(Boat boat) {
         this.boat = boat;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public String getScore() {
@@ -101,5 +101,4 @@ public class Reservation implements Serializable {
     public void setScore(String score) {
         this.score = score;
     }
-
 }

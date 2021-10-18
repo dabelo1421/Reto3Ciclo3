@@ -58,6 +58,14 @@ public class Boat implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getBrand() {
         return brand;
     }
@@ -72,14 +80,6 @@ public class Boat implements Serializable {
 
     public void setYear(Integer year) {
         this.year = year;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getDescription() {
