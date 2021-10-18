@@ -26,13 +26,13 @@ public class Boat implements Serializable {
     private Integer id;
 
     @Column(length = 45)
+    private String name;
+
+    @Column(length = 45)
     private String brand;
 
     @Column(length = 4)
     private Integer year;
-
-    @Column(length = 45)
-    private String name;
 
     @Column(length = 250)
     private String description;
