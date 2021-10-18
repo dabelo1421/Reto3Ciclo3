@@ -1,11 +1,14 @@
 package Reto3Ciclo3.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name="Client")
-public class Client {
+@Table(name="client")
+public class Client implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +26,10 @@ public class Client {
     @Column(length = 3)
     private Integer age;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
     private List<Message> message;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
     private List<Reservation> reservation;
 
 
@@ -54,7 +57,7 @@ public class Client {
         this.password = password;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -85,5 +88,4 @@ public class Client {
     public void setReservation(List<Reservation> reservation) {
         this.reservation = reservation;
     }
-
 }

@@ -1,18 +1,18 @@
 package Reto3Ciclo3.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name="Boat")
-public class Boat {
+public class Boat implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(length = 45)
-    private String name;
 
     @Column(length = 45)
     private String brand;
@@ -20,17 +20,20 @@ public class Boat {
     @Column(length = 4)
     private Integer year;
 
+    @Column(length = 45)
+    private String name;
+
     @Column(length = 250)
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "idCategory")
+    @JoinColumn(name = "categoryId")
     private Category category;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "boat")
     private List<Message> message;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "boat")
     private List<Reservation> reservation;
 
 

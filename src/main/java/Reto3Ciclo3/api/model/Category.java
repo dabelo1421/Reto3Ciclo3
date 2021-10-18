@@ -1,12 +1,15 @@
 package Reto3Ciclo3.api.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name="Category")
-public class Category {
+@Table(name="category")
+public class Category implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +21,7 @@ public class Category {
     @Column(length = 250)
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "category")
     private List<Boat> boat;
 
 

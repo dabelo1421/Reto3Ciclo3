@@ -1,11 +1,14 @@
 package Reto3Ciclo3.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="Reservation")
-public class Reservation {
+@Table(name="reservation")
+public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,16 +21,17 @@ public class Reservation {
     private Date devolutionDate;
 
     @Column
-    private Date createDay;
+    private String status="created";
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Boat boat;
 
     @ManyToOne
     @JoinColumn(name = "idClient")
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "idBoat")
-    private Boat boat;
-
+    private String score;
 
     public Integer getIdReservation() {
         return idReservation;
@@ -53,12 +57,12 @@ public class Reservation {
         this.devolutionDate = devolutionDate;
     }
 
-    public Date getCreateDay() {
-        return createDay;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCreateDay(Date createDay) {
-        this.createDay = createDay;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Client getClient() {
@@ -75,6 +79,14 @@ public class Reservation {
 
     public void setBoat(Boat boat) {
         this.boat = boat;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 
 }

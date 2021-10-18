@@ -1,19 +1,22 @@
 package Reto3Ciclo3.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name="Message")
-public class Message {
+@Table(name="message")
+public class Message implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMessage;
 
     @Column(length = 250)
-    private String message;
+    private String messageText;
 
     @ManyToOne
-    @JoinColumn(name = "idBoat")
+    @JoinColumn(name = "id")
     private Boat boat;
 
     @ManyToOne
@@ -29,12 +32,12 @@ public class Message {
         this.idMessage = idMessage;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageText() {
+        return messageText;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
     }
 
     public Boat getBoat() {
