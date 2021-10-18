@@ -1,7 +1,18 @@
 package Reto3Ciclo3.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -27,10 +38,12 @@ public class Client implements Serializable{
     private Integer age;
 
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
-    private List<Message> message;
+    @JsonIgnoreProperties("client")
+    private List<Message> messages;
 
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
-    private List<Reservation> reservation;
+    @JsonIgnoreProperties("client")
+    private List<Reservation> reservations;
 
     public Integer getIdClient() {
         return idClient;
@@ -72,19 +85,19 @@ public class Client implements Serializable{
         this.age = age;
     }
 
-    public List<Message> getMessage() {
-        return message;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setMessage(List<Message> message) {
-        this.message = message;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
-    public List<Reservation> getReservation() {
-        return reservation;
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 
-    public void setReservation(List<Reservation> reservation) {
-        this.reservation = reservation;
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 }

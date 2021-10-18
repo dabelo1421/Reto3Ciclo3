@@ -1,7 +1,18 @@
 package Reto3Ciclo3.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -28,14 +39,16 @@ public class Boat implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "categoryId")
+    @JsonIgnoreProperties("boats")
     private Category category;
 
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "boat")
-    private List<Message> message;
+    @JsonIgnoreProperties({"boat", "client"})
+    private List<Message> messages;
 
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "boat")
-    private List<Reservation> reservation;
-
+    @JsonIgnoreProperties({"boat", "client"})
+    private List<Reservation> reservations;
 
     public Integer getId() {
         return id;
@@ -43,14 +56,6 @@ public class Boat implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getBrand() {
@@ -69,6 +74,14 @@ public class Boat implements Serializable {
         this.year = year;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -85,20 +98,19 @@ public class Boat implements Serializable {
         this.category = category;
     }
 
-    public List<Message> getMessage() {
-        return message;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setMessage(List<Message> message) {
-        this.message = message;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
-    public List<Reservation> getReservation() {
-        return reservation;
+    public List<Reservation> getReservations() {
+        return reservations;
     }
 
-    public void setReservation(List<Reservation> reservation) {
-        this.reservation = reservation;
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
-
 }

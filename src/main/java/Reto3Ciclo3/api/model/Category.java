@@ -2,14 +2,23 @@ package Reto3Ciclo3.api.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name="category")
-public class Category implements Serializable{
+@Table(name="Category")
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +31,8 @@ public class Category implements Serializable{
     private String description;
 
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "category")
-    private List<Boat> boat;
-
+    @JsonIgnoreProperties("category")
+    private List<Boat> boats;
 
     public Integer getId() {
         return id;
@@ -49,11 +58,11 @@ public class Category implements Serializable{
         this.description = description;
     }
 
-    public List<Boat> getBoat() {
-        return boat;
+    public List<Boat> getBoats() {
+        return boats;
     }
 
-    public void setBoat(List<Boat> boat) {
-        this.boat = boat;
+    public void setBoats(List<Boat> boats) {
+        this.boats = boats;
     }
 }
