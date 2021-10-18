@@ -40,7 +40,7 @@ public class ClientService {
         if (client.getIdClient() !=null){
             Optional<Client> auxUpdt=clientRepository.getClient(client.getIdClient());
             if(!auxUpdt.isEmpty()){
-                if (Client.getName()!=null){
+                if (client.getName()!=null){
                     auxUpdt.get().setName(client.getName());
                 }
                 if (client.getAge()!=null){
