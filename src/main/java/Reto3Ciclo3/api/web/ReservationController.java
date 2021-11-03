@@ -1,9 +1,10 @@
 package Reto3Ciclo3.api.web;
 
 
-import Reto3Ciclo3.api.model.Boat;
+
 import Reto3Ciclo3.api.model.Reservation;
-import Reto3Ciclo3.api.services.BoatService;
+import Reto3Ciclo3.api.reportes.ContadorClientes;
+import Reto3Ciclo3.api.reportes.StatusReservas;
 import Reto3Ciclo3.api.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,22 @@ public class ReservationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int reservationId){
         return reservationService.deleteReservation(reservationId);
+    }
+
+    @GetMapping("/report-status")
+    public StatusReservas getReservas(){
+        return reservationService.getReporteStatusReservaciones();
+    }
+
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservation> getReservasTiempo(@PathVariable("dateOne")String dateOne, @PathVariable("dateTwo")String dateTwo){
+
+        return reservationService.getReportesTiempoReservaciones(dateOne, dateTwo);
+    }
+
+    @GetMapping("/report-clients")
+    public List<ContadorClientes> getClientes(){
+        return reservationService.servicioTopClientes();
     }
 
 }

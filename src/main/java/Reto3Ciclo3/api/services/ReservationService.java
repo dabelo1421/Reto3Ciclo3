@@ -2,10 +2,16 @@ package Reto3Ciclo3.api.services;
 
 import Reto3Ciclo3.api.model.Boat;
 import Reto3Ciclo3.api.model.Reservation;
+import Reto3Ciclo3.api.reportes.ContadorClientes;
+import Reto3Ciclo3.api.reportes.StatusReservas;
 import Reto3Ciclo3.api.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,6 +71,35 @@ public class ReservationService {
             return true;
         }).orElse(false);
         return aBoolean;
+    }
+
+    public StatusReservas getReporteStatusReservaciones(){
+        List<Reservation>completed= reservationRepository.ReservacionStatus("completed");
+        List<Reservation>cancelled= reservationRepository.ReservacionStatus("cancelled");
+        return new StatusReservas(completed.size(), cancelled.size());
+
+    }
+
+    public List<Reservation> getReportesTiempoReservaciones(String datoA, String datoB){
+
+        SimpleDateFormat parser=new SimpleDateFormat("yyyy-MM-dd");
+        Date datoUno = new Date();
+        Date datoDos = new Date();
+
+        try{
+            datoUno = parser.parse(datoA);
+            datoDos = parser.parse(datoB);
+        }catch(ParseException evt){
+            evt.printStackTrace();
+        }if(datoUno.before(datoDos)){
+            return reservationRepository.ReservacionTiempo(datoUno, datoDos);
+        }else{
+            return new ArrayList<>();
+        }
+    }
+
+    public List<ContadorClientes> servicioTopClientes(){
+        return reservationRepository.getTopClientes();
     }
 
 }
